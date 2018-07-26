@@ -5,15 +5,14 @@ module.exports = (app) => {
     //     GameService.query()
     //     .then(games => res.json(games))
     // })
-    // function query(criteria = {name: '', type: [], category: [], userId: ''}) {
 
-    // app.get('/toys', (req, res) => {
-    //     toyService.query(req.query.name, +req.query.minPrice)
-    //         .then(toys => res.json(toys))
-    // })
     app.get('/game', (req, res) => {
-        GameService.query()
-        .then(games => res.json(games))
+
+        // console.log('req', req);
+        console.log('req.query', req.query);
+        
+        GameService.query(req.query.allByName, req.query.name, req.query.type, req.query.category, req.query.userId)
+            .then(games => res.json(games))
     })
     
     app.get('/game/:gameId', (req, res) => {
