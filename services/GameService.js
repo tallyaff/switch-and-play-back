@@ -1,7 +1,7 @@
 const ObjectId = require('mongodb').ObjectId;
 const MongoService = require('./MongoService') 
 
-function query() {
+function queryGames() {
     return MongoService.connect()
         .then(db => {
             const collection = db.collection('game');
@@ -54,7 +54,7 @@ function getById(gameId) {
 }
 
 module.exports = {
-    query,
+    queryGames,
     remove,
     getById,
     add,

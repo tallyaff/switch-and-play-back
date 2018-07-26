@@ -12,7 +12,7 @@ module.exports = (app) => {
     //         .then(toys => res.json(toys))
     // })
     app.get('/game', (req, res) => {
-        GameService.query()
+        GameService.queryGames()
         .then(games => res.json(games))
     })
     
