@@ -12,7 +12,7 @@ function query() {
 function remove(gameId) {
     gameId = new ObjectId(gameId)
     // console.log('game deleted#####', gameId);
-    return MongoService.connectToMongo()
+    return MongoService.connect()
         .then(db => {
             const collection = db.collection('game');
             // console.log('gameId', gameId)
@@ -22,7 +22,7 @@ function remove(gameId) {
 
 function update(game) {
     game._id = new ObjectId(game._id)
-    return MongoService.connectToMongo()
+    return MongoService.connect()
         .then(db => {
             const collection = db.collection('game');
             return collection.updateOne({ _id: game._id }, { $set: game })
@@ -33,7 +33,7 @@ function update(game) {
 }
 
 function add(game) {
-    return MongoService.connectToMongo()
+    return MongoService.connect()
     .then(db => {
         const collection = db.collection('game');
             return collection.insertOne(game)
@@ -46,7 +46,7 @@ function add(game) {
 
 function getById(gameId) {
     gameId = new ObjectId(gameId)
-    return MongoService.connectToMongo()
+    return MongoService.connect()
         .then(db => {
             const collection = db.collection('game');
             return collection.findOne({ _id: gameId })
