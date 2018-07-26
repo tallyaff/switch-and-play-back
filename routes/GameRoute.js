@@ -1,6 +1,16 @@
 const GameService = require('../services/GameService')
 
 module.exports = (app) => {
+    // app.get('/game', (req, res) => {
+    //     GameService.query()
+    //     .then(games => res.json(games))
+    // })
+    // function query(criteria = {name: '', type: [], category: [], userId: ''}) {
+
+    // app.get('/toys', (req, res) => {
+    //     toyService.query(req.query.name, +req.query.minPrice)
+    //         .then(toys => res.json(toys))
+    // })
     app.get('/game', (req, res) => {
         GameService.query()
         .then(games => res.json(games))
