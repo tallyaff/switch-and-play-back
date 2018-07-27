@@ -3,10 +3,10 @@ const UserService = require('../services/UserService')
 module.exports = (app) => {
     app.post('/user/login', (req, res) => {
         const credentials = req.body
-        console.log('req^1^:', credentials);        
+        // console.log('req^1^:', credentials);        
         UserService.checkLogin(credentials )
         .then(user => {
-            console.log('req^7^', user);
+            // console.log('req^7^', user);
             delete user.password;
             res.json(user)
         })
