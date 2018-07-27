@@ -1,9 +1,11 @@
 const MatchService = require('../services/MatchService')
 
 module.exports = (app) => {
+    console.log('match arrived')
+    app.post('/match', (req, res) => {
 
-    app.post('/game', (req, res) => {
         const match = req.body;
+        console.log('match in rout service',match )
         MatchService.addMatch(match)
             .then(match => {
                 res.json(match)
