@@ -7,16 +7,20 @@ module.exports = (app) => {
         UserService.checkLogin(credentials )
         .then(user => {
             // console.log('req^7^', user);
+            req.session.loggedinUser = user;
             delete user.password;
             res.json(user)
         })
             .catch(err => res.status(401).send('Wrong user/pass ' + err))
     });
 
-    app.post(`/signup`, (req, res) => {
+    app.post(`/user/signup`, (req, res) => {
         const user = req.body;
         UserService.addUser(user)
-            .then(addedUser => res.json(addedUser))
+            .then(addedUser =>{
+                req.session.loggedinUser = addedUser;
+                res.json(addedUser) 
+            })
             .catch(err => {
                 console.log(err)
                 res.status(500).send('Could not add USER')
