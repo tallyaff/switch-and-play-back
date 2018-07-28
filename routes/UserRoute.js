@@ -23,6 +23,11 @@ module.exports = (app) => {
             })
     })
 
+    app.post(`/user/logout`, (req, res) => {
+        req.session.loggedinUser = null;
+        res.end('Loggedout!');
+    });
+
     app.get('/user', (req, res) => {
         UserService.query()
         .then(users => res.json(users))
