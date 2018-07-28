@@ -27,6 +27,7 @@ module.exports = (app) => {
             })
     })
 
+
     app.post(`/user/logout`, (req, res) => {
         req.session.loggedinUser = null;
         res.end('Loggedout!');

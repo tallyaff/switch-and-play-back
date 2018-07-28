@@ -30,12 +30,10 @@ function addUser(newUser) {
 
 
 
-
-
-
 module.exports = {
     checkLogin,
-    addUser
+    addUser,
+
 }
 
 
