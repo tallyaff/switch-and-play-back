@@ -1,7 +1,7 @@
 const ObjectId = require('mongodb').ObjectId;
 const MongoService = require('./MongoService') 
 
-function query(allByName, name, typeStr, categorystr, userId) {
+function queryGames(allByName, name, typeStr, categorystr, userId) {
     console.log('allByName', allByName, 'name', name, 'typeStr', typeStr, 'categorystr', categorystr, 'userId', userId);
     var criteria = {};
     if (name) criteria.name = {$regex : `.*${name}.*`};
@@ -18,13 +18,19 @@ function query(allByName, name, typeStr, categorystr, userId) {
     if (userId) criteria.userId = userId;
 
     console.log('Criteria', criteria);
-    
     return MongoService.connect()
-        .then(db => {
-            const collection = db.collection('game');
-            return collection.find(criteria).toArray()
-        })
+            .then(db => {
+                const collection = db.collection('game');
+                return collection.find(criteria).toArray()
+            })
 }
+// function queryGames() {
+//     return MongoService.connect()
+//         .then(db => {
+//             const collection = db.collection('game');
+//             return collection.find(criteria).toArray()
+//         })
+// }
 
 // var criteria = {};
 // if (name) criteria.name = {$regex : `.*${name}.*`};
@@ -90,7 +96,7 @@ function getById(gameId) {
 }
 
 module.exports = {
-    query,
+    queryGames,
     remove,
     getById,
     add,

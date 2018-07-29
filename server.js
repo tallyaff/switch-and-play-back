@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser')
 const session = require('express-session');
 const addUserRoutes = require('./routes/UserRoute')
 const addGameRoutes = require('./routes/GameRoute')
+const addMatchRoutes = require('./routes/MatchRoute')
 const app = express()
 
 app.use(cors({
@@ -42,6 +43,7 @@ app.put('/login', (req, res) => {
 
 addUserRoutes(app)
 addGameRoutes(app)
+addMatchRoutes(app)
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
