@@ -133,7 +133,7 @@ function getById(matchId) {
 module.exports = {
     queryMatch,
     updateMatch,
-    getById
+    getById,
     addMatch
 }
 
