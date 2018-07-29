@@ -4,7 +4,7 @@
         "userId": "5b57555554497fcbab41f0c2",
         "games": ["5b596cf23af932a16bcd9097", "5b596cf23af932a16bcd90a2"]
         },
-    "uaerPasive": {   
+    "uaerPassive": {   
         "userId": "5b57555554497fcbab41f0c3",
         "gameId": "5b596cf23af932a16bcd90a3"
         },
@@ -15,7 +15,7 @@
         "userId": "5b5868285d5aba03c1ce31c1",
         "games": ["5b596cf23af932a16bcd90a7", "5b596cf23af932a16bcd90a9", "5b596cf23af932a16bcd90ab"]
         },
-    "uaerPasive": {   
+    "uaerPassive": {   
         "userId": "5b589ba35d5aba03c1d35692",
         "gameId": "5b596cf23af932a16bcd90ac"
         },
@@ -26,7 +26,7 @@
         "userId": "5b57555554497fcbab41f0c2",
         "games": ["5b596cf23af932a16bcd9097","5b596cf23af932a16bcd90a5"]
         },
-    "uaerPasive": {   
+    "uaerPassive": {   
         "userId": "5b589ba35d5aba03c1d35692",
         "gameId": "5b596cf23af932a16bcd90ad"
         },
@@ -37,7 +37,7 @@
             "userId": "5b589ba35d5aba03c1d35692",
             "games": ["5b596cf23af932a16bcd90ad","5b596cf23af932a16bcd90af","5b596cf23af932a16bcd90b6"]
             },
-        "uaerPasive": {   
+        "uaerPassive": {   
             "userId": "5b5867f85d5aba03c1ce2e83",
             "gameId": "5b596cf23af932a16bcd90b3"
             },
