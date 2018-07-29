@@ -21,15 +21,18 @@ module.exports = (app) => {
         const gameId = req.params.gameId;
         
         GameService.getById(gameId)
-        .then(game => res.json(game))
+        .then(game => {
+            console.log('game??', game);
+            res.json(game)
+        })
     })
     
     app.delete('/game/:gameId', (req, res)=>{
         const gameId = req.params.gameId;
-        console.log('game deleted****', gameId);
+        // console.log('game deleted****', gameId);
         GameService.remove(gameId)
         .then((result)=>{
-            console.log('result', result)
+            // console.log('result', result)
             res.end(`Game ${gameId} Deleted `)
         })
         

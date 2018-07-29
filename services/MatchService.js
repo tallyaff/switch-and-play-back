@@ -1,5 +1,6 @@
 const ObjectId = require('mongodb').ObjectId;
 const MongoService = require('./MongoService') 
+const GameService = require('./GameService') 
 
 function queryMatch(userId) {
     var criteria = {};
@@ -35,10 +36,71 @@ function queryMatch(userId) {
                 }
             ]).toArray()
             .then(res => {
-                console.log('in querymatch got:', res)
+                // console.log('in querymatch got:', res)
                 return res
             })
         })
+}
+
+function updateMatch(match, game) {
+    console.log('match$$: ', match);
+    console.log('game$$$: ', game);
+    console.log('matchId$$$: ', match._id);
+    const matchItem = {
+                'userActive':
+                    { 
+                        'userId': match.userActive.userId,
+                        'games': [game]
+                    },
+                'userPassive':
+                    { 
+                        'userId': match.userPassive.userId,
+                        'gameId': match.userPassive.gameId
+                    },
+                'isMatch': true 
+    }
+    updateGameStatus(match.userPassive.gameId);   //update passive game to isAvailble = false
+    updateGameStatus(game);     //update active game to isAvailble = false
+
+    // console.log('matchItem:%%', matchItem);
+    return MongoService.connect()
+        .then(db => {
+            const collection = db.collection('match');
+            return collection.updateOne({ _id: match._id }, { $set: matchItem })
+                .then(res => {
+                    return matchItem;
+                })
+        })
+    
+}
+
+function updateGameStatus(gameId) {
+    GameService.getById(gameId)
+    .then(game => {
+        console.log('game??', game)
+        res.json(game)
+        return MongoService.connect()
+        .then(db => {
+            const collection = db.collection('game');
+            return collection.updateOne({ _id: gameId }, { $set: {"isAvailble": false}})
+                .then(res => {
+                    return game;
+                })
+        })
+    })
+}
+
+function addMatch(newMatch){
+    return MongoService.connect()
+    .then(db => {
+        const collection = db.collection('match');
+        return collection.insertOne(newMatch)
+            .then(result => {
+                newMatch._id = result.insertedId;
+                return newMatch;
+            })
+    })
+
 }
 
 
@@ -59,17 +121,19 @@ function queryMatch(userId) {
 //         })
 // }
 
-// function getById(matchId) {
-//     matchId = new ObjectId(matchId)
-//     return MongoService.connect()
-//         .then(db => {
-//             const collection = db.collection('match');
-//             return collection.find({ _id: matchId })
-//         })
-// }
+function getById(matchId) {
+    var matchIdObj = new ObjectId(matchId)
+    return MongoService.connect()
+        .then(db => {
+            const collection = db.collection('match');
+            return collection.findOne({ _id: matchIdObj })
+        })
+}
 
 module.exports = {
     queryMatch,
-    // getById
+    updateMatch,
+    getById
+    addMatch
 }
 
