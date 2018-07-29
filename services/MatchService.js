@@ -89,6 +89,21 @@ function updateGameStatus(gameId) {
         })
     })
 }
+
+function addMatch(newMatch){
+    return MongoService.connect()
+    .then(db => {
+        const collection = db.collection('match');
+        return collection.insertOne(newMatch)
+            .then(result => {
+                newMatch._id = result.insertedId;
+                return newMatch;
+            })
+    })
+
+}
+
+
 // function queryMatch(userId) {
 //     var criteria = {};
 //     if (userId) criteria.$or = [
@@ -119,5 +134,6 @@ module.exports = {
     queryMatch,
     updateMatch,
     getById
+    addMatch
 }
 
