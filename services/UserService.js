@@ -28,11 +28,24 @@ function addUser(newUser) {
 
 }
 
+function updateUser(user) {
+    user._id = new ObjectId(user._id)
+    return MongoService.connect()
+        .then(db => {
+            const collection = db.collection('user');
+            return collection.updateOne({ _id: user._id }, { $set: user })
+                .then(result => {
+                    return user;
+                })
+        })
+}
+
 
 
 module.exports = {
     checkLogin,
     addUser,
+    updateUser
 
 }
 

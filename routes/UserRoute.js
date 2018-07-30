@@ -35,8 +35,13 @@ module.exports = (app) => {
 
     app.get('/user', (req, res) => {
         UserService.query()
-        .then(users => res.json(users))
+            .then(users => res.json(users))
     })
     
+    app.put('/user/:userId', (req, res)=>{
+        const user = req.body;
+        UserService.updateUser(user)
+            .then(user => res.json(user))
+    })
 }
 
