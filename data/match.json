@@ -42,6 +42,17 @@
             "gameId": "5b596cf23af932a16bcd90b3"
             },
         "isMatch": false
-        }
+    },
+    {   
+        "userActive": {     
+            "userId": "5b57555554497fcbab41f0c2",
+            "games": ["5b596cf23af932a16bcd909c"]
+            },
+        "uaerPassive": {   
+            "userId": "5b5866f25d5aba03c1ce1bea",
+            "gameId": "5b596cf23af932a16bcd90a4"
+            },
+        "isMatch": false
+    }
 
 ]

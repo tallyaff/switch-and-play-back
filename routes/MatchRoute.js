@@ -24,7 +24,7 @@ module.exports = (app) => {
         // console.log('req.game', req.body.match.gameId);
         let matchId = req.body.match.matchId
         console.log('matchId??', matchId);
-        GameService.getById(matchId)
+        MatchService.getById(matchId)
         .then(match => {
             // console.log('match??', match)
             res.json(match)
