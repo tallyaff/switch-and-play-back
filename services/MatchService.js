@@ -91,6 +91,16 @@ function updateGameStatus(gameId) {
 }
 
 function addMatch(newMatch){
+console.log('newMatch.userActive.games',newMatch.userActive.games)
+    newMatch.userPassive.userId = ObjectId(newMatch.userPassive.userId);
+    newMatch.userPassive.gameId = ObjectId(newMatch.userPassive.gameId);
+    newMatch.userActive.userId = ObjectId(newMatch.userActive.userId);
+    newMatch.userActive.games =  newMatch.userActive.games.map(gameId => {
+
+        console.log('gameid servie oded',gameId)
+       return ObjectId(gameId);
+        console.log('gameid servie oded2',gameId)
+    }); 
     return MongoService.connect()
     .then(db => {
         const collection = db.collection('match');
@@ -100,8 +110,8 @@ function addMatch(newMatch){
                 return newMatch;
             })
     })
-
 }
+
 
 
 // function queryMatch(userId) {
