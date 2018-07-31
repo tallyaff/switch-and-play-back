@@ -50,13 +50,15 @@ function updateMatch(match, game) {
                 'userActive':
                     { 
                         'userId': match.userActive.userId,
-                        'games': [game]
+                        'games': [game.id]
                     },
+                // 'userActiveGames':  [game],                
                 'userPassive':
                     { 
                         'userId': match.userPassive.userId,
                         'gameId': match.userPassive.gameId
                     },
+                // 'userPassiveGames': "",
                 'isMatch': true 
     }
     updateGameStatus(match.userPassive.gameId);   //update passive game to isAvailble = false
@@ -65,9 +67,11 @@ function updateMatch(match, game) {
     // console.log('matchItem:%%', matchItem);
     return MongoService.connect()
         .then(db => {
+            
             const collection = db.collection('match');
             return collection.updateOne({ _id: match._id }, { $set: matchItem })
-                .then(res => {
+            .then(res => {
+                console.log('from server---match??!!', matchItem);
                     return matchItem;
                 })
         })
@@ -102,24 +106,6 @@ function addMatch(newMatch){
     })
 
 }
-
-
-// function queryMatch(userId) {
-//     var criteria = {};
-//     if (userId) criteria.$or = [
-//         {'userActive.userId': userId},
-//         {'userpassive.userId': userId}
-//     ]
-//     return MongoService.connect()
-//         .then(db => {
-//             const collection = db.collection('match');
-//             return collection.find(criteria).toArray()
-//             .then(res => {
-//                 console.log('in querymatch got:', res)
-//                 return res
-//             })
-//         })
-// }
 
 function getById(matchId) {
     var matchIdObj = new ObjectId(matchId)
