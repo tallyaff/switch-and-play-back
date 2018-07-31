@@ -40,12 +40,20 @@ function updateUser(user) {
         })
 }
 
-
+function getById(userId) {
+    userId = new ObjectId(userId)
+    return MongoService.connect()
+        .then(db => {
+            const collection = db.collection('user');
+            return collection.findOne({ _id: userId })
+        })
+}
 
 module.exports = {
     checkLogin,
     addUser,
-    updateUser
+    updateUser,
+    getById
 
 }
 

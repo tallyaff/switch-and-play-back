@@ -1,4 +1,5 @@
 const GameService = require('../services/GameService')
+const UserService = require('../services/UserService')
 
 module.exports = (app) => {
     // app.get('/game', (req, res) => {
@@ -27,6 +28,16 @@ module.exports = (app) => {
         })
     })
     
+    app.get('/games/:userId', (req, res) => {
+        const userId = req.params.userId;
+        // console.log('router before promise:', userId);
+        UserService.getById(userId)
+            .then(user => {
+                console.log('user in router in back:', user);
+                res.json(user)
+            })
+    })
+
     app.delete('/game/:gameId', (req, res)=>{
         const gameId = req.params.gameId;
         // console.log('game deleted****', gameId);
