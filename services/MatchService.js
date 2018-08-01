@@ -3,6 +3,7 @@ const MongoService = require('./MongoService')
 const GameService = require('./GameService') 
 
 function queryMatch(userId) {
+    console.log('user in aggregate', userId);
     var criteria = {};
     if (userId) criteria.$or = [
         {'userActive.userId': userId},
@@ -36,7 +37,7 @@ function queryMatch(userId) {
                 }
             ]).toArray()
             .then(res => {
-                // console.log('in querymatch got:', res)
+                console.log('in querymatch got:', res)
                 return res
             })
         })
@@ -95,6 +96,16 @@ function updateGameStatus(gameId) {
 }
 
 function addMatch(newMatch){
+console.log('newMatch.userActive.games',newMatch.userActive.games)
+    newMatch.userPassive.userId = ObjectId(newMatch.userPassive.userId);
+    newMatch.userPassive.gameId = ObjectId(newMatch.userPassive.gameId);
+    newMatch.userActive.userId = ObjectId(newMatch.userActive.userId);
+    newMatch.userActive.games =  newMatch.userActive.games.map(gameId => {
+
+        console.log('gameid servie oded',gameId)
+       return ObjectId(gameId);
+        console.log('gameid servie oded2',gameId)
+    }); 
     return MongoService.connect()
     .then(db => {
         const collection = db.collection('match');
@@ -104,8 +115,26 @@ function addMatch(newMatch){
                 return newMatch;
             })
     })
-
 }
+
+
+
+// function queryMatch(userId) {
+//     var criteria = {};
+//     if (userId) criteria.$or = [
+//         {'userActive.userId': userId},
+//         {'userpassive.userId': userId}
+//     ]
+//     return MongoService.connect()
+//         .then(db => {
+//             const collection = db.collection('match');
+//             return collection.find(criteria).toArray()
+//             .then(res => {
+//                 console.log('in querymatch got:', res)
+//                 return res
+//             })
+//         })
+// }
 
 function getById(matchId) {
     var matchIdObj = new ObjectId(matchId)
