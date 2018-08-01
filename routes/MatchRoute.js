@@ -6,7 +6,7 @@ module.exports = (app) => {
     app.post('/match', (req, res) => {
 
         const match = req.body;
-        // console.log('match in rout service',match )
+        // console.log('match in route service', match )
         MatchService.addMatch(match)
             .then(match => {
                 res.json(match)
@@ -14,7 +14,7 @@ module.exports = (app) => {
     })
     
     app.get('/match/:userId', (req, res) => {
-        // console.log('req.params.userId@@', req.params.userId);
+        console.log('req.params.userId@@', req.params.userId);
         MatchService.queryMatch(req.params.userId)
         .then(matches => res.json(matches))
     })
