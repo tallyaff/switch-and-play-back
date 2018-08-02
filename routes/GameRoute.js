@@ -28,6 +28,7 @@ module.exports = (app) => {
         })
     })
     
+    //for user details in each game
     app.get('/games/:userId', (req, res) => {
         const userId = req.params.userId;
         // console.log('router before promise:', userId);
