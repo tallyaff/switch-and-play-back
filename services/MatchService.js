@@ -2,23 +2,6 @@ const ObjectId = require('mongodb').ObjectId;
 const MongoService = require('./MongoService')
 const GameService = require('./GameService')
 
-// function queryMatch(userId) {
-//     console.log('user in aggregate', userId);
-//     var criteria = {};
-//     if (userId) criteria.$or = [
-//         { 'userActive.userId': userId },
-//         { 'userPassive.userId': userId }
-//     ]
-//     return MongoService.connect()
-//         .then(db => {
-//             const collection = db.collection('match');
-//             return collection.aggregate([
-//                 {
-//                     $match: criteria
-//                 }
-//             ]).toArray()
-//         })
-// }
 
 function queryMatch(userId) {
     console.log('user in aggregate', userId);
@@ -61,37 +44,32 @@ function queryMatch(userId) {
         })
 }
 
-function updateMatch(match, game) {
+function updateMatch(match, game, textareaRes) {
     console.log('match$$: ', match);
     console.log('game$$$: ', game);
     console.log('matchId$$$: ', match._id);
-    // match.userPassive.gameId = ObjectId(match.userPassive.gameId);
-    // match.userActive.games = match.userActive.games.map(gameId => {
-
-    //     console.log('gameid servie oded', gameId)
-    //     return ObjectId(gameId);
-    // });
     const matchItem = {
         'userActive':
         {
             'userId': match.userActive.userId,
-            'games': [ObjectId(game)]
+            'games': [ObjectId(game)],
+            'textareaReq': match.userActive.textareaReq,
         },
-        // 'userActiveGames': [ObjectId(game._id)],
         'userPassive':
         {
             'userId': match.userPassive.userId,
-            'gameId': ObjectId(match.userPassive.gameId)
+            'gameId': ObjectId(match.userPassive.gameId),
+            'textareaRes': textareaRes,
         },
         'isMatch': true
     }
     updateGameStatus(match.userPassive.gameId);   //update passive game to isAvailble = false
-    updateGameStatus(game);     //update active game to isAvailble = false
+    updateGameStatus(game);                         //update active game to isAvailble = false
 
-    // console.log('matchItem:%%', matchItem);
     return MongoService.connect()
         .then(db => {
-
+            console.log('matchhhhhhhh', matchItem);
+            
             const collection = db.collection('match');
             return collection.updateOne({ _id: match._id }, { $set: matchItem })
                 .then(res => {
@@ -138,23 +116,6 @@ function addMatch(newMatch) {
 }
 
 
-
-// function queryMatch(userId) {
-//     var criteria = {};
-//     if (userId) criteria.$or = [
-//         {'userActive.userId': userId},
-//         {'userpassive.userId': userId}
-//     ]
-//     return MongoService.connect()
-//         .then(db => {
-//             const collection = db.collection('match');
-//             return collection.find(criteria).toArray()
-//             .then(res => {
-//                 console.log('in querymatch got:', res)
-//                 return res
-//             })
-//         })
-// }
 
 function getById(matchId) {
     var matchIdObj = new ObjectId(matchId)
