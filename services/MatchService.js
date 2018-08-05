@@ -44,7 +44,7 @@ function queryMatch(userId) {
         })
 }
 
-function updateMatch(match, game) {
+function updateMatch(match, game, textareaRes) {
     console.log('match$$: ', match);
     console.log('game$$$: ', game);
     console.log('matchId$$$: ', match._id);
@@ -52,12 +52,14 @@ function updateMatch(match, game) {
         'userActive':
         {
             'userId': match.userActive.userId,
-            'games': [ObjectId(game)]
+            'games': [ObjectId(game)],
+            'textareaReq': match.userActive.textareaReq,
         },
         'userPassive':
         {
             'userId': match.userPassive.userId,
-            'gameId': ObjectId(match.userPassive.gameId)
+            'gameId': ObjectId(match.userPassive.gameId),
+            'textareaRes': textareaRes,
         },
         'isMatch': true
     }
@@ -66,7 +68,8 @@ function updateMatch(match, game) {
 
     return MongoService.connect()
         .then(db => {
-
+            console.log('matchhhhhhhh', matchItem);
+            
             const collection = db.collection('match');
             return collection.updateOne({ _id: match._id }, { $set: matchItem })
                 .then(res => {
