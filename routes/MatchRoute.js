@@ -20,15 +20,16 @@ module.exports = (app) => {
     })
 
     app.put('/match/:matchId', (req, res) => {
-        // console.log('req.body', req.body);
+        console.log('req.body', req.body);
         // console.log('req.game', req.body.match.gameId);
         let matchId = req.body.match.matchId
         // console.log('matchId??', matchId);
+        console.log('req.body.match.textareaRes in routes', req.body.match.textareaRes);
         MatchService.getById(matchId)
         .then(match => {
-            // console.log('match??', match)
+            console.log('match after MatchService.getById(matchId)', match)
             res.json(match)
-            MatchService.updateMatch(match, req.body.match.gameId)
+            MatchService.updateMatch(match, req.body.match.gameId, req.body.match.textareaRes)
             .then(match => {
                 res.json(match)
             })

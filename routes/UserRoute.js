@@ -37,6 +37,17 @@ module.exports = (app) => {
     //     UserService.query()
     //         .then(users => res.json(users))
     // })
+
+        
+    app.get('/user/:userId', (req, res) => {
+        const userId = req.params.userId;
+        // console.log('router before promise:', userId);
+        UserService.getById(userId)
+            .then(user => {
+                console.log('user in router in back:', user);
+                res.json(user)
+            })
+    })
     
     app.put('/user/:userId', (req, res)=>{
         const user = req.body;
