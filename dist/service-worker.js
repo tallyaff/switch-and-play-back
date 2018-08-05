@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.4.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.36594de02b9da512dea6622320c5404a.js"
+  "/precache-manifest.cd63c1943ef7edc3bdceb5ae84d26dbe.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "switch-and-play"});
