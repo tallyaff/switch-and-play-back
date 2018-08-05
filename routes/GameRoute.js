@@ -23,7 +23,7 @@ module.exports = (app) => {
         
         GameService.getById(gameId)
         .then(game => {
-            console.log('game??', game);
+            // console.log('game??', game);
             res.json(game)
         })
     })
@@ -34,7 +34,7 @@ module.exports = (app) => {
         // console.log('router before promise:', userId);
         UserService.getById(userId)
             .then(user => {
-                console.log('user in router in back:', user);
+                // console.log('user in router in back:', user);
                 res.json(user)
             })
     })

@@ -2,22 +2,22 @@ const ObjectId = require('mongodb').ObjectId;
 const MongoService = require('./MongoService') 
 
 function queryGames(allByName, name, typeStr, categorystr, userId) {
-    console.log('allByName', allByName, 'name', name, 'typeStr', typeStr, 'categorystr', categorystr, 'userId', userId);
+    // console.log('allByName', allByName, 'name', name, 'typeStr', typeStr, 'categorystr', categorystr, 'userId', userId);
     var criteria = {};
     if (name) criteria.name = {$regex : `.*${name}.*`};
     if (typeStr) {
         var types = typeStr.split(',');
-        console.log('types', types);
+        // console.log('types', types);
         criteria.type = { $in: types };     //if I want all items= change in to all
     }
     if (categorystr) {
         var categories = categorystr.split(',');
-        console.log('categories', categories);
+        // console.log('categories', categories);
         criteria.category = { $in: categories };
     };
     if (userId) criteria.userId = userId;
 
-    console.log('Criteria', criteria);
+    // console.log('Criteria', criteria);
     return MongoService.connect()
             .then(db => {
                 const collection = db.collection('game');

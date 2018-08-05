@@ -3,10 +3,13 @@ const cors = require('cors');
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const session = require('express-session');
+const app = express()
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+
 const addUserRoutes = require('./routes/UserRoute')
 const addGameRoutes = require('./routes/GameRoute')
 const addMatchRoutes = require('./routes/MatchRoute')
-const app = express()
 
 app.use(cors({
   origin: ['http://localhost:8080'],
@@ -46,8 +49,20 @@ addGameRoutes(app)
 addMatchRoutes(app)
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => {
+http.listen(port, () => {
   console.log(`App listening on port ${port}!`)
 });
 
+
+io.on('connection', socket => {
+  console.log('user connected')
+
+  socket.on('newMatch', () => {
+    io.emit('newMatch');
+  })
+  
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  })
+})
 // app.listen(3000, () => console.log('Example app listening on port 3000  !'))

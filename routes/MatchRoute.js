@@ -14,7 +14,7 @@ module.exports = (app) => {
     })
     
     app.get('/match/:userId', (req, res) => {
-        console.log('req.params.userId@@', req.params.userId);
+        // console.log('req.params.userId@@', req.params.userId);
         MatchService.queryMatch(req.params.userId)
         .then(matches => res.json(matches))
     })
