@@ -8,14 +8,8 @@ module.exports = (app) => {
     // })
 
     app.get('/game', (req, res) => {
-
-        // console.log('req', req);
-        console.log('req.query', req.query);
-        
         GameService.queryGames(req.query.allByName, req.query.name, req.query.type, req.query.category, req.query.userId)
             .then(games => res.json(games))
-        // GameService.queryGames()
-        // .then(games => res.json(games))
     })
     
     app.get('/game/:gameId', (req, res) => {
