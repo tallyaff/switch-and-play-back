@@ -44,24 +44,35 @@ function queryMatch(userId) {
         })
 }
 
-function updateMatch(match, game, textareaRes) {
+function getById(matchId) {
+    matchId = new ObjectId(matchId)
+    return MongoService.connect()
+        .then(db => {
+            const collection = db.collection('match');
+            return collection.findOne({ _id: matchId })
+        })
+}
+
+// function updateMatch(match, game, textareaRes) {
+function updateMatch(match, game) {
     console.log('match$$: ', match);
     console.log('game$$$: ', game);
     console.log('matchId$$$: ', match._id);
     const matchItem = {
-        'userActive':
+        userActive:
         {
-            'userId': match.userActive.userId,
-            'games': [ObjectId(game)],
-            'textareaReq': match.userActive.textareaReq,
+            userId: match.userActive.userId,
+            games: [ObjectId(game)],
+            // 'textareaReq': match.userActive.textareaReq,
         },
-        'userPassive':
+        userPassive:
         {
-            'userId': match.userPassive.userId,
-            'gameId': ObjectId(match.userPassive.gameId),
-            'textareaRes': textareaRes,
+            userId: match.userPassive.userId,
+            gameId: ObjectId(match.userPassive.gameId),
+            // 'textareaRes': textareaRes,
         },
-        'isMatch': true
+        isMatch: true,
+        chat: match.chat
     }
     updateGameStatus(match.userPassive.gameId);   //update passive game to isAvailble = false
     updateGameStatus(game);                         //update active game to isAvailble = false
@@ -117,6 +128,8 @@ function addMatch(newMatch) {
 
 
 function getById(matchId) {
+    console.log('try getById matchId', matchId);
+    
     var matchIdObj = new ObjectId(matchId)
     return MongoService.connect()
         .then(db => {

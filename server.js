@@ -54,15 +54,5 @@ http.listen(port, () => {
 });
 
 
-io.on('connection', socket => {
-  console.log('user connected')
-
-  socket.on('newMatch', () => {
-    io.emit('newMatch');
-  })
-  
-  socket.on('disconnect', () => {
-    console.log('user disconnected');
-  })
-})
+require('./services/SocketService')(io);
 // app.listen(3000, () => console.log('Example app listening on port 3000  !'))

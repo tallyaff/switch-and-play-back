@@ -16,8 +16,8 @@ module.exports = (app) => {
             .then(games => res.json(games))
         // GameService.queryGames()
         // .then(games => res.json(games))
-    })
-    
+    }) 
+   
     app.get('/game/:gameId', (req, res) => {
         const gameId = req.params.gameId;
         
