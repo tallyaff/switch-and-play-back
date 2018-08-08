@@ -78,7 +78,7 @@ function updateMatch(match, game, chat) {
 
     return MongoService.connect()
         .then(db => {
-            console.log('matchhhhhhhh', matchItem);
+            // console.log('matchhhhhhhh', matchItem);
             
             const collection = db.collection('match');
             return collection.updateOne({ _id: match._id }, { $set: matchItem })

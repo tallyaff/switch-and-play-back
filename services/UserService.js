@@ -4,16 +4,32 @@ const MongoService = require('./MongoService')
 
 
 function checkLogin(creds) {
-    // console.log('user^2^: ', creds.user.username );     
-    // console.log('users^3^: ', users);
+    console.log('creds:', creds);
+    
+    // return MongoService.connect()
+    //     .then(db => db.collection('user').findOne
+    //         ({ 
+    //             username: creds.user.username, 
+    //             password: creds.user.password 
+    //         })
+    //     )
+    // }
     return MongoService.connect()
-        .then(db => db.collection('user').findOne({ username: creds.user.username, password: creds.user.password }
-            // user => user.username === creds.user.username
-            // && user.password === creds.password
-            // {username:creds.user.username})
-        )
-        )
-}
+        .then(db => db.collection('user').findOne ({
+            username: creds.user.username,
+            password: creds.user.password
+        })
+        .then(user => {
+            if (user) {
+                console.log('yes!!! login'); 
+                return Promise.resolve(user)
+            } else {
+                console.log('no login');                
+                return Promise.reject(user);  
+            }   
+        }) 
+    )
+    }
 
 function addUser(newUser) {
     return MongoService.connect()
