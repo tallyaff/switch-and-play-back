@@ -11,7 +11,12 @@ module.exports = (app) => {
             delete user.password;
             res.json(user)
         })
-            .catch(err => res.status(401).send('Wrong user/pass ' + err))
+            .catch(err => {
+                // console.log('errrrrrrrrrrrrrrrrr');
+                res.json(err)
+                res.status(401).send('Wrong user/pass ' + err)
+            })
+                
     });
 
     app.post(`/user/signup`, (req, res) => {
