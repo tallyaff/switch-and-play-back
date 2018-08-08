@@ -26,41 +26,22 @@ module.exports = (app) => {
     })
 
     app.put('/match/:matchId', (req, res) => {
-        console.log('req.body', req.body);
-        // console.log('req.game', req.body.match.gameId);
-        let matchId = req.body.match.matchId
-        console.log('matchId??', matchId);
-        // console.log('req.body.match.textareaRes in routes', req.body.match.textareaRes);
+        console.log('req.body.match', req.body.match);
+        let matchId = req.body.match._id 
+        console.log('matchId??', req.body.match._id);
         MatchService.getById(matchId)
         .then(match => {
             console.log('match after MatchService.getById(matchId)', match)
             res.json(match)
-            MatchService.updateMatch(match, req.body.match.gameId)
-            // MatchService.updateMatch(match, req.body.match.gameId, req.body.match.textareaRes)
+            MatchService.updateMatch(match, req.body.match.gameId, req.body.match.chat)
             .then(match => {
-                res.json(match)
+                console.log('match!!!!!!!!!!!!' , match);
+                
+                res.end(match)
+                // res.end(JSON.stringify(match))
             })
         })
     })
-
-    // app.put('/match/:matchId', (req, res) => {
-    //     console.log('PUT: /match/:matchId req.body', req.body);
-    //     // console.log('req.game', req.body.match.gameId);
-    //     let matchId = req.body.match._id
-    //     console.log('matchId in put ??', matchId);
-    //     // console.log('req.body.match.textareaRes in routes', req.body.match.textareaRes);
-    //     // console.log('req.body.match.textareaRes in routes', req.body.match.textareaRes);
-    //     MatchService.getById(matchId)
-    //         .then(match => {
-    //             console.log('match after MatchService.getById(matchId)', match)
-    //             res.json(match)
-    //             // MatchService.updateMatch(match, req.body.match.gameId, req.body.match.textareaRes)
-    //             MatchService.updateMatch(match, req.body.match.gameId)
-    //                 .then(match => {
-    //                     res.json(match)
-    //                 })
-    //         })
-    // })
 
     // app.get('/match/:userId', (req, res) => {
     //     console.log('req.query.userId^^', req.query.userId);
