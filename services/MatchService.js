@@ -55,15 +55,15 @@ function getById(matchId) {
         })
 }
 
-function updateMatch(match, game, chat) {
+function updateMatch(match, gameId, chat) {
     console.log('match$$: ', match);
-    console.log('game$$$: ', game);
+    console.log('game$$$: ', gameId);
     console.log('matchId$$$: ', match._id);
     const matchItem = {
         userActive:
         {
             userId: match.userActive.userId,
-            games: [ObjectId(game)],
+            games: gameId? [ObjectId(gameId)] : match.userActive.games,
         },
         userPassive:
         {
@@ -74,7 +74,7 @@ function updateMatch(match, game, chat) {
         chat: chat 
     }
     updateGameStatus(match.userPassive.gameId);   //update passive game to isAvailble = false
-    updateGameStatus(game);                         //update active game to isAvailble = false
+    updateGameStatus(gameId);                         //update active game to isAvailble = false
 
     return MongoService.connect()
         .then(db => {
@@ -98,7 +98,7 @@ function updateGameStatus(gameId) {
             return MongoService.connect()
                 .then(db => {
                     const collection = db.collection('game');
-                    return collection.updateOne({ _id: gameId }, { $set: { "isAvailble": false } })
+                    return collection.updateOne({ _id: gameId }, { $set: { isAvailble: false } })
                         .then(res => {
                             return game;
                         })

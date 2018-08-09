@@ -53,7 +53,7 @@ function queryGames(allByName, name, typeStr, categorystr, userId) {
 
 function remove(gameId) {
     gameId = new ObjectId(gameId)
-    // console.log('game deleted#####', gameId);
+    console.log('game deleted#####', gameId);
     return MongoService.connect()
         .then(db => {
             const collection = db.collection('game');
