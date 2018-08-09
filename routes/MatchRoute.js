@@ -32,12 +32,11 @@ module.exports = (app) => {
         MatchService.getById(matchId)
         .then(match => {
             console.log('match after MatchService.getById(matchId)', match)
-            res.json(match)
             MatchService.updateMatch(match, req.body.match.gameId, req.body.match.chat)
             .then(match => {
                 console.log('match!!!!!!!!!!!!' , match);
                 
-                res.end(match)
+                res.json(match)
                 // res.end(JSON.stringify(match))
             })
         })

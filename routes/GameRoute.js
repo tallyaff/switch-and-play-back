@@ -27,7 +27,7 @@ module.exports = (app) => {
     //for user details in each game
     app.get('/games/:userId', (req, res) => {
         const userId = req.params.userId;
-        // console.log('router before promise:', userId);
+        console.log('inside get /games/:userId. user Id is:', userId);
         UserService.getById(userId)
             .then(user => {
                 // console.log('user in router in back:', user);
